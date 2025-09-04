@@ -1,0 +1,192 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+%\usepackage[margin=1in]{geometry}
+\usepackage[a4paper,top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{url}
+
+\usepackage[spanish]{babel}% Lenguage-specific commands
+%\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc} % is no longer required (since 2018)
+\usepackage[T1]{fontenc}% Set the font (output) encodings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% lstlisting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}             % Include the listings-package
+\usepackage{alltt}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Fortran
+}
+
+\lstset{style=mystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphs path to the Picture Folder
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{Pictures/}{Data/}} % Two folders Picture and Data
+
+\newcommand{\myUniversidad}{Universidad Nacional del Callao}
+\newcommand{\myFacultad}{Facultad de Ingenier\'ia Mec\'anica y de Energ\'ia}
+\newcommand{\myCurso}{Mec\'anica de Fluidos I}
+\newcommand{\myTarea }{Tarea \# }
+\newcommand{\myNombre}{Apellidos y Nombres}
+\newcommand{\myNumTarea}{5} % Cambie el numero de Laboratorio
+
+\pagestyle{fancyplain}
+\lhead{\fancyplain{}{\textbf{Tarea \myNumTarea}}}      
+\rhead{\fancyplain{}{\myNombre}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{biblatex}
+\bibliographystyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%--------------------------------------------------------------------------------------------------
+\thispagestyle{plain} % plain permite que la primera pagina no aparescan la barra en la parte superior de la pagina
+%--------------------------------------------------------------------------------------------------
+\begin{minipage}{.30\textwidth}
+ \includegraphics[width=.5\textwidth]{Escudo_UNAC.png}\\[.5cm]
+\end{minipage}
+\begin{minipage}{.65\textwidth}
+ \begin{center} 
+\Large{                
+\myUniversidad\\
+\myFacultad\\ 
+\myCurso\\
+{\myTarea \myNumTarea}\\
+\myNombre\\
+\today}
+\end{center} 
+\end{minipage}\\
+%--------------------------------------------------------------------------------------------------
+\centerline{\underline{\hspace{7in}}}
+%--------------------------------------------------------------------------------------------------
+\tableofcontents
+%--------------------------------------------------------------------------------------------------
+\vspace{1em}
+
+% --- Repite este bloque para cada problema ---
+\section*{Problema 1}
+\addcontentsline{toc}{section}{Problema 1}
+\textbf{Enunciado:} Escribe aquí el enunciado del problema (o una versión resumida si lo tienes en el libro)\cite{Mott2015, Shames1995}.
+
+\vspace{1em}
+\textbf{Solución:} \\
+
+Aquí va la resolución paso a paso del problema.
+
+\begin{itemize}
+  \item Paso 1: Identificar qué demonios está pasando.
+  \item Paso 2: Aplicar la ecuación correspondiente.
+  \item Paso 3: Resolver, mantener la calma, y verificar unidades.
+  \item Paso 4: Escribir la respuesta final con sus respectivas unidades.
+\end{itemize}
+
+% Puedes incluir una figura si es necesario
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\textwidth]{fig1.png}
+\caption{Diagrama esquemático del problema.}
+\end{figure}
+
+% Ejemplo de segundo problema
+\section*{Problema 2}
+\addcontentsline{toc}{section}{Problema 2}
+\textbf{Enunciado:} Escribe aquí el enunciado del problema (o una versión resumida si lo tienes en el libro). \cite{Cengel2010}.\cite{Cevallos2022}
+
+\textbf{Solución:} \\
+\begin{equation}
+  x_{n+1}  =  x_n - m\;f(x)\left[\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1}}\right]
+\end{equation}
+\hspace{1mm}\\
+For $m=\frac{1+\sqrt{5}}{2}=1.618$\\
+\begin{verbatim}
+Steps        xa              xb               xi           f(xi)       |(xn+1-xn)|
+----------------------------------------------------------------------------------
+  0  1.500000000000  1.600000000000  1.633191538329 -0.001945949763  0.033191538329 
+  1  1.600000000000  1.633191538329  1.564416498720 -0.000020351034  0.068775039609 
+  2  1.633191538329  1.564416498720  1.563240412447 -0.000028545785  0.001176086273 
+  3  1.564416498720  1.563240412447  1.569869184045 -0.000000429797  0.006628771598 
+  4  1.563240412447  1.569869184045  1.570033141259 -0.000000291226  0.000163957214 
+  5  1.569869184045  1.570033141259  1.570590682342 -0.000000021145  0.000557541083 
+  6  1.570033141259  1.570590682342  1.570661309883 -0.000000009115  0.000070627541 
+  7  1.570590682342  1.570661309883  1.570747894571 -0.000000001173  0.000086584688 
+  8  1.570661309883  1.570747894571  1.570768583633 -0.000000000385  0.000020689062 
+  9  1.570747894571  1.570768583633  1.570784932394 -0.000000000065  0.000016348761 
+ 10  1.570768583633  1.570784932394  1.570790299953 -0.000000000018  0.000005367559 
+ 11  1.570784932394  1.570790299953  1.570793673498 -0.000000000004  0.000003373545 
+ 12  1.570790299953  1.570793673498  1.570794985787 -0.000000000001  0.000001312289 
+ 13  1.570793673498  1.570794985787  1.570795714281 -0.000000000000  0.000000728494 
+\end{verbatim}
+\begin{lstlisting}
+! Codigo Fortran aqui
+PROGRAM ejemplo
+  IMPLICIT NONE
+  INTEGER :: i, n
+  REAL :: x, sum
+
+  n = 100
+  sum = 0.0
+
+  DO i = 1, n
+    x = REAL(i)
+    sum = sum + x**2
+  END DO
+
+  PRINT *, 'La suma de los cuadrados es: ', sum
+
+END PROGRAM ejemplo
+\end{lstlisting}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig2.pdf}
+    \caption{Descripción de la figura}
+\end{figure}
+
+% Ejemplo de segundo problema
+\section*{Problema 3}
+\addcontentsline{toc}{section}{Problema 3}
+\textbf{Enunciado:}
+
+% Ejemplo de segundo problema
+\section*{Problema 4}
+\addcontentsline{toc}{section}{Problema 4}
+\textbf{Enunciado:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  Bibliography  or References page                            %                    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\addcontentsline{toc}{section}{References}
+\bibliography{References/myBibliography}
+\end{document}
