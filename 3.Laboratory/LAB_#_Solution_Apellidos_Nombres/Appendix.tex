@@ -1,0 +1,72 @@
+\appendix
+%\doublespacing
+%\chapter{Appendix}
+
+\section{Front-end and Back-end}
+In software engineering, the terms \verb+front-end+ and \verb+back-end+ refer to the separation
+of concerns between the presentation layer (\verb+front-end+), and the data access layer (\verb+back-end+) of a piece of software, 
+or the physical infrastructure or hardware. Therefore in a HPC, 
+\begin{itemize}
+\item The login servers are called \verb+front-ends+ because you do not run your calculations there.
+\item Rather run your calculations on \verb+back-end+ compute servers.
+\item The \verb+front-end+ server provides access to compute servers via the \verb+batch+ system, using the \verb+qsub+ command.
+\end{itemize}
+
+\section{Hard Link or Symbolic Link}
+The \verb+ln+ command is a \verb+Linux/Unix+ command used to create file links to an existing file. 
+\subsection{Link types}
+\begin{itemize}
+\item There are two types of links
+\begin{enumerate}
+\item  \textbf{hard links:} Refer to the specific location of physical data.
+A hard link allows multiple filenames to be associated with the same file since a hard link points to the 
+inode of a given file, the data of which is stored on disk.
+\item  \textbf{symbolic links:} Refer to a symbolic path indicating the abstract location of another file.
+A symbolic links are special files that refer to other files by name.
+\end{enumerate}
+\item The \verb+ln+ command by default creates hard links, and when called with the command line parameter \verb+ln -s+
+creates symbolic links.
+\item Most operating systems prevent hard links to directories from being created since such a capability could disrupt
+the structure of a file system and interfere with the operation of other utilities. 
+\item The \verb+ln+ command can however be used to create symbolic links to  non-existent files. 
+\end{itemize}
+
+\subsection{Examples}
+\begin{enumerate}
+ \item Example 1
+\begin{lstlisting}[language=bash,numbers=none] 
+$ ln -s source_file target_file
+\end{lstlisting}
+\begin{lstlisting}[language=bash,numbers=none] 
+$ ls -l source_file target_file
+-rw-r--r--  1 veryv  wheel  0 Mar  7 22:01 source_file
+lrwxr-xr-x  1 veryv  wheel  5 Mar  7 22:01 target_file -> source_file
+\end{lstlisting} 
+\item Example 2 - Create a symbolic link for \verb+/home/Desktop/Links/Example/example.cpp+ as \verb+/home/Test/example.cpp+,
+copy paste the following command
+\begin{lstlisting}[language=bash,numbers=none] 
+$ ln -s   /home/Desktop/Links/Example/example.cpp    /home/Test/example.cpp
+\end{lstlisting}
+\begin{lstlisting}[language=bash,numbers=none] 
+$ ll
+lrwxrwxrwx 1 vivek  vivek    16 2007-09-25 22:53 example.cpp -> /home/Desktop/Links/Example/example.cpp
+\end{lstlisting}
+\end{enumerate}
+
+\section{Securely Copy (SCP) Files}
+\verb+SCP+ allows files to be copied to, from, or between different hosts (between a local host and a remote host or between two remote hosts.).
+It uses \verb+ssh+ for data transfer and provides the same authentication and same level of security as \verb+ssh+.
+\begin{enumerate}
+ \item Copy the file \verb+foobar.txt+ from a remote host to the local host
+\begin{lstlisting}[language=bash,numbers=none] 
+$ scp your_username@remotehost.edu:foobar.txt /some/local/directory 
+\end{lstlisting}
+\item How to \verb+scp+ a file to LANL-IC \verb+turquoise/+
+\begin{lstlisting}[language=bash,numbers=none] 
+$ scp filename username@wtrw.lanl.gov:username@gr-fe.lanl.gov:/remote/path/to/file
+\end{lstlisting}
+\item Also shorter probably works
+\begin{lstlisting}[language=bash,numbers=none] 
+scp filename wtrw:gr-fe:/remote/path/to/file
+\end{lstlisting}
+\end{enumerate}

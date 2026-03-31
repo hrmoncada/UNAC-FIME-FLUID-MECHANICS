@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{Ding_and_Williams}
+N.~{Ding} and S.~{Williams}.
+\newblock An instruction roofline model for gpus.
+\newblock In {\em 2019 IEEE/ACM Performance Modeling, Benchmarking and
+  Simulation of High Performance Computer Systems (PMBS)}, pages 7--18, 2019.
+
+\bibitem{Yang_Kurth_Willians}
+Charlene Yang, T.~Kurth, and S.~Williams.
+\newblock Hierarchical roofline analysis for gpus: Accelerating performance
+  optimization for the nersc‐9 perlmutter system.
+\newblock {\em Concurrency and Computation: Practice and Experience}, 32, 2020.
+
+\end{thebibliography}
