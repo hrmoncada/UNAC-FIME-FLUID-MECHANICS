@@ -1,0 +1,767 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 0.8.4 ] */
+
+/* [wxMaxima: title   start ]
+Sesión 3:
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: subsect start ]
+Referencias:
+"Primeros pasos en Maxima"
+Mario Rodríguez Riotorto
+http://www.telefonica.net/web2/biomates/maxima/max.pdf
+Introducción a Maxima (http://maxima.sourceforge.net/docs/intromax/intromax.html)
+"Minimal Maxima" Robert Dodier (
+http://maxima.sourceforge.net/docs/tutorial/en/minimal-maxima.pdf)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: section start ]
+Revisamos algunas cosas
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Se puede asignar al mismo tiempo que operamos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:3 / b:5    /* es la fracción 3/5 y esto es un comentario */;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se puede usar el $ para finalizar una entrada también, ocultando el resultado
+Por eso podemos introducir órdenes como la siguiente
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:5$ a^2 /* no se verá la asignacion de a, pero sí el resultado de a²*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para entender el formato bfloat
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+bfloat(1000) /* esperamos un exponente 3*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+bfloat(1234567891011121314)/* veremos aqui el numero de digitos y el exponente*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fpprec /*preguntamos por la precisión para que tenga sentido la salida anterior*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+fpprec:18$ bfloat(1234567891011121314) /* esperamos precisión en dos dígitos más*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Funciones definidas por intervalos
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Vamos a introducir algo de programación para una aplicación sencilla:
+definir una función por intervalos con uno o varios if
+Primero definimos una función con dos intervalos y un if
+Fijaos que aquí no hay endif
+Por claridad usamos varias líneas para escribir el if
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=
+       if x<-2 then 
+          %e^(x/2) 
+      else 
+          1/x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(-3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(f(-3));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(-2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Si queremos tres intervalos, ponemos dos if
+Para hacerlo más claro usamos varias líneas e indentamos
+(Si queréis ver el símbolo de pi, set_display(xml)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=if x<0 then 
+        sin(x)
+      elseif x<%pi/2 then
+        tan(x)
+      else
+        x+2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(-%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(%pi/4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(%pi/2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+La comilla simple evita la evaluación de la función
+y no funciona con las asignaciones, comprobamos aquí:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+'f(3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Polinomio de Taylor
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Lo aplicamos a e^x en el entorno de 0, con 5 términos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(%e^x, x,0,5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+A sen(x) en torno a pi/2, con 8 términos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(sin(x),x, %pi/2, 8);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+a ln(x) en torno a 1 con 10 términos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(log(x),x, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Funciones de dos variables
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+La definición de funciones de dos variables es similar
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x,y):=x²-x*y+2*y²;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0,5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(-2,4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Derivamos parcialmente
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x,y),y,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x,y),y,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para hacer una integral el procedimiento también es el mismo
+sólo hay que indicar la variable de integración
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(f(x,y), x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(integrate(f(x,y),x),y);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+risch(f(x,y), x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+risch(risch(f(x,y),x),y);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Polinomio de Taylor para una función de dos variables
+Podéis calcular el tiempo empleado en el cálculo
+conmutando la pantalla de tiempo en el menú Maxima
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(%e^(3*x*y),(x,y),(0,0),5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(sin(2*x*y),(x,y),(0,0),10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y otra manera de especificarlo, separando la x y la y
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+taylor(sin(2*x*y),[x,0,10], [y,0,10]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+expand(taylor(sin(2*x*y),[x,0,10], [y,0,10]));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podéis valorar el error cometido cuando se evalúa la función usando su
+polinomio de Taylor en un punto del entorno del centro del desarrollo
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x,y):=%e^(3*x*y)-''%o30;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0.1,0.1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0.4,0.1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0.4,0.4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0.7,0.6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(f(0.7,0.8));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(f(1.1,1.1));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Listas y vectores
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Maxima está programado en Lisp y opera internamente con listas
+Las listas se definen entre corchetes, sus elementos están separados
+por comas y pueden ser listas a su vez
+Las listas pueden contener números, expresiones, cadenas de caracteres,,...
+Un vector es una lista.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista1:[1,a,"esto",b,[2,3]];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista2:[f(x):=3*x, "es una función", [1,7], "es su rango"];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Comprobamos que la función ha sido definida de paso
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora invocamos los elementos de la lista:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista1[1];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista1[3];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista2[1];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para encontrar el elemento Maxima recorre todos los elementos desde el primero
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Secuencias: a(n)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Si la lista es una secuencia con una orden de formación, hay la función makelist
+makelist(ley_formacion, variable, valor inicial, valor final)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista3:makelist(2*n-1, n, 1,10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista4: makelist(3*n^3-2*n*2,n, 1, 6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos construir una secuencia desde el menú de Algebra>Construir lista
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista5:makelist(1/2*k*(k+1), k, 1, 10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Operando con los elementos de una lista como argumentos
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Si queremos aplicar una operación (suma, producto) que tome como argumentos
+todos los elementos de una lista tenemos la función apply
+apply("operación", lista)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+apply("+", lista3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+apply("*", lista3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Cuando se trata de una secuencia podemos aplicar las funciones sum y product,
+en vez del apply, con la siguiente sintaxis
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sum(1/2*k*(k+1),k,1,10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+product(1/2*k*(k+1),k,1,10);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Funciones sobre listas
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Son funciones de identificación, búsqueda y ordenación
+(Activamos la lista5 en su entrada si no lo está para
+trabajar sobre ella)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+''%i49;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+listp(lista5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length(lista5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+listp es por tanto una variable lógica, que se puede evaluar en condiciones (en if por ejemplo)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+first(lista5) /*busca el primer elemento de la lista 5*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+rest(lista5) /*busca todos los elementos de la lista 5 menos el 1º*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+last(lista5) /*busca el último elemento de la lista 5*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+second(lista5) /*busca el 2º elemento de la lista 5*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+seventh(lista5) /*el septimo, etc*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+part(lista5,2) /*se pide el elemento 2º de lista5*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+member(-4, lista5) /*se pregunta si -4 es miembro de lista5*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Construimos una nueva lista para ordenarla, borrar elementos, poner elementos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista6:[-2,a, -3, d,c,4];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sort(lista6) /*ordena primero los números y luego las letras*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista7:[4,[3,1,5],d,1, b];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sort(lista7)  /*no ordena las listas internas*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Si queremos deshacer una lista interna, usamos la función flatten
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+flatten(lista7);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+sort(flatten(lista7));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lista7;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para añadir elementos a una lista: cons y endcons
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+listin: [1, 2, 3];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+cons(0, listin)    /*añade al principio*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+cons(3*sqrt(2), listin);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+endcons(4,listin);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y se pueden unir dos listas con append:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+liston: [100, 200,300, 400];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+append(listin, liston);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+append(liston,listin);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora un poco más de programación, para practicar con algo sencillo: FOR
+Hay tres variantes del for, que sólo difieren en la forma de terminar. Son: 
+for variable: valor_inicial   step paso  thru   valor_final    do coleccion_ordenes 
+for variable: valor_inicial   step paso  while condición       do coleccion_ordenes
+for variable: valor_inicial   step paso  unless condición      do coleccion_ordenes 
+Vamos a usar la primera para construir una lista
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:[];
+for k:1 step 1 thru 10 do
+    a:append(a,[3*k+1]);
+disp(a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Pero existe un "for" especial para listas:
+for    x    in    lista      do       expr 
+que evalúa la expresión para cada elemento de la lista.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista: [3,5,9,10];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a:[];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for k in lista do
+    a: append(a,[1/k+3]);
+    disp(a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+PARA APLICAR UNA FUNCIÓN SOBRE TODOS LOS ELEMENTOS DE UNA LISTA: map(funcion, lista)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Ha de ser factible aplicar la función
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+lista8: [1,5,10,15];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+map(exp, lista8);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+map("!",lista8) /*los operadores van entre comillas*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+map(factor, lista8)/*factor da los factores del número, menos el 1*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Funciones anónimas aplicadas sobre listas: funciones lambda
+Se puede definir la función sólo para aplicarla, sin conservarla
+luego en un nombre, se hace con lambda([variables], función)...)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+map(lambda([x],x^2-3*x+1),lista8);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+map(lambda([x,y],x^2+y^2),[1,2,3],[-1,4,5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+map(lambda([x,y,z], x^2-2*x*y*z+z^2),[-2,4,5], [3,1,8],[5,1,9]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Operaciones aritméticas sobre listas
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Para que pueda hacerse aritmética con listas está activada por
+defecto la variable listarith 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+listarith;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se opera con las listas como con matrices (en realidad vectores),
+recordando que * es producto elemento a elemento
+y · es el producto de matrices (producto escalar)
+La división (/) es elemento a elemento
+La potenciación y exponenciación también
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:[1,2,3]; b:[4,5,6];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a+b;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a*b;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a.b;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+3*a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a^3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+3^a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se puede definir una función para calcular el módulo de un vector 
+que compruebe que es un vector y que lo calcule
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(x):= 
+    if listp(x) then
+           sqrt(apply("+",x^2))
+    else error(x, " no es un vector");
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+b:"Esto no es un vector";
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(b);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=7/x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(f(x));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a:[cos(x), sin(x), 1]; b:[3, 1, -3];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+trigsimp(%)         /*esto es la simplificación trigonométrica*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(b);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+modulo(a-b);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+trigsimp(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Como vemos la función error admite como argumentos variables y cadenas de caracteres
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Matrices
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Las matrices son listas de listas, anunciadas por la orden matrix
+cada lista es una fila de la matriz
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A: matrix([1,2],[3,4]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para invocar los elementos de una matriz: A[i,j]
+también vale A[i][j]
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A[2,2];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+A[2][2];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Vamos a hacer la matriz de una reflexión de eje x=0
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A:matrix([-1,0],[0,1]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Funciones que se aplican a matrices
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+transpose(A);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eigenvalues(A);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+? eigenvalues;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eigenvectors(A);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+? eigenvectors;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+x:matrix([1],[0]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+A.x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lambda:-1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+lambda*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Sesión 4
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

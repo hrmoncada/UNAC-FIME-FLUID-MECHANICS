@@ -1,0 +1,440 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 0.8.4 ] */
+
+/* [wxMaxima: title   start ]
+Sesión 4:
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: subsect start ]
+Referencias:
+"Primeros pasos en Maxima"
+Mario Rodríguez Riotorto
+http://www.telefonica.net/web2/biomates/maxima/max.pdf
+Introducción a Maxima (http://maxima.sourceforge.net/docs/intromax/intromax.html)
+"Minimal Maxima" Robert Dodier (
+http://maxima.sourceforge.net/docs/tutorial/en/minimal-maxima.pdf)
+2DPlotting (Spanish) Wilson Mixon (trad. Nicolas Guarin) 
+http://wxmaxima.sourceforge.net/wiki/index.php/Tutorials
+
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: section start ]
+Seguimos con matrices
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Sesión 4
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Otras funciones sobre matrices
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+length(A)  /*da el numero de filas de A*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length(transpose(A)) /*da el número de columnas de A */;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+determinant(A)   /*da el determinante de A*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+trigsimp(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Veamos que podemos buscar nosotros el polinomio característico
+de la matriz A (determinante(A-lambda*I))
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+remvalue(lambda);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Nos lo da Maxima con charpoly
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+charpoly(A,lambda);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Pero podríamos haberlo calculado a mano
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+remvalue(lambda);
+determinant(A-lambda*diagmatrix(length(A),1));
+trigsimp(%);
+factor(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora resolvemos el polinomio característico para lambda
+y encontramos los autovalores
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+solve(%,lambda);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Buscamos ahora los autovectores resolviendo (A-lambda*I).X=0
+Construimos la matriz A-lambda*I
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+diagmatrix(length(A),1) /*aquí construimos la matriz unidad*/;
+A+1*%   /*escogemos uno de los autovalores y construimos lambda*I*/;
+%.matrix([a,b]) /*y aquí tenemos la matriz deseada*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Buscamos los valores de a y b que convierten este vector en el vector nulo
+En este caso:   a=lo que se quiera, b=0,y una base para este subespacio es (1,0)
+que es el vector que obtuvimos para el autovalor -1
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Repetimos el proceso para el otro autovalor (copiar y pegar)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+diagmatrix(length(A),1) /*aquí construimos la matriz unidad*/;
+A-1*%   /*escogemos uno de los autovalores y construimos lambda*I*/;
+%.matrix([a,b]) /*y aquí tenemos la matriz deseada*/;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En este caso, para que éste sea el vector nulo:
+a=0 y b= cualquier número (no nulo, pues buscamos vectores no nulos)
+y una base para el subespacio de las soluciones es el (0,1)
+que es el que nos dan
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Otro ejemplo: la matriz de rotación de ángulo alpha
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A:matrix([cos(alpha),-sin(alpha)],[sin(alpha), cos(alpha)]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eigenvalues(A);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+eigenvectors(A);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Comprobamos los autovalores y autovectores correspondientes
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+x:[1,%i];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+A.x-(cos(alpha)-%i*sin(alpha))*diagmatrix(length(A),1).x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+trigsimp(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+x:[1,-%i];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+A.x-(%i*sin(alpha)+cos(alpha))*x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+trigsimp(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Vamos a formar el polinomio característico de la matriz
+y los autovalores
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+charpoly(A,lambda), expand;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+solve(%, lambda);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Creamos una matriz diagonal con el menú:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+D: matrix(
+ [1,0,0], 
+ [0,1,0], 
+ [0,0,3]
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y una simétrica
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+S: matrix(
+ [1,2,-1], 
+ [2,3,4], 
+ [-1,4,5]
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y una antisimetrica (la diagonal es de 0)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+AS: matrix(
+ [0,2,3], 
+ [-(2),0,5], 
+ [-(3),-(5),0]
+);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora una donde los terminos son función de la posición
+(Matriz a partir de la expresión)
+Como veréis usa una función anónima de variables i, j
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+ME: genmatrix(lambda([i,j], i+j), 3, 3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Funciones compuestas:regla de la cadena
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos especificar las dependencias con la orden depends
+depends(nombre funcion variables, nombre funciones intermedias, variables 
+Maxima muestra las expresiones simbólicas, aún sin definir la función
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+depends(y,u,u,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+dependencies;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(y,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(y,x,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(y,x,3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(y,x,4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Vamos a quitar dependencias para establecer otras
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+remove(y, dependency);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+remove(x,dependency);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+depends(z,[u,v],[u,v],[x,y]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(z,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(z,x,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(z,u,1,x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Gráficas de funciones
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Usamos el menú de Gráficos para aprender
+Funciones de una variable: gráficos 2D
+Usamos el formato "en línea": el gráfico sale en la misma ventana
+y el comando plot2d viene precedido de wx
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Observamos que dejando la variable y entre 0 y 0, se autoescala
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([sin(x)/x], [x,-5,5])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Con el botón derecho del ratón podéis copiar la imagen o guardarla,
+o también clic sobre la imagen para seleccionarla y luego con el menú
+Editar> Guardar selección en imagen
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Se pueden poner etiquetas a los ejes, para que no salgan las estándar:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([sin(x)/x], [x,-5,5], [xlabel, "x(m)"], [ylabel, "Desplazamiento (m)"];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se pueden dibujar dos funciones a la vez
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([erf(x), erfc(x)],[x,-5,5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y funciones dadas en forma paramétrica:
+Probamos con la de la circunferencia
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,80]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+El número de ticks importa en las paramétricas pues es el número de puntos
+comoprobamos que con menos ticks sale un polígono estrellado
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,8]]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para controlar las proporciones podemos escalar los ejes 
+dando el rango de valores de x y de y si queremos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,80]],[x,-3/2,3/2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos determinar tanto el tamaño del eje x como el del eje y
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,80]],[x,-1.8,1.8], [y,-1.2,1.2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos quitar el las etiquetas de los ejes y el encuadre (box) como sigue 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,80]],[x,-1.8,1.8], [y,-1.2,1.2],
+[xlabel, ""], [ylabel,""], [box,false]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y poner ahora una legenda
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([parametric, cos(t), sin(t), [t, -2*%pi, 2*%pi], [nticks,80]],[x,-1.8,1.8], [y,-1.2,1.2],
+[xlabel, ""], [ylabel,""], [box,false],[legend,"Esto es una rueda"]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora ajustamos el tamaño de la imagen con wxplot_size
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([cos(x^2)], [x,-2*%pi,2*%pi], [y,-1.5,1.5], [legend,"cos(x²)"]), wxplot_size=[400,400];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se puede cambiar el estilo de línea con style
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([cos(x^2)], [x,-2*%pi,2*%pi], [y,-1.5,1.5], [legend,"cos(x²)"], 
+[style,[lines,2,3]]), wxplot_size=[400,400];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y para poner un título y grid es preciso usar la orden gnuplot_preamble
+que incluye una lista entre "" de opciones
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([cos(x^2)], [x,-2*%pi,2*%pi], [y,-1.5,1.5], [legend,"cos(x²)"], 
+[style,[lines,2,3]],[gnuplot_preamble, " set grid; set key  bottom center; 
+set title 'Ejemplo';"]), wxplot_size=[400,400];
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Usamos ahora el formato gnuplot que lo crea en una ventana distinta 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d([(%e^x-%e^(-x))/2], [x,-5,5],
+ [plot_format, gnuplot])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En tres dimensiones es similar
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x,y):=x^2+2*x*y+y^2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+plot3d(f,[x,-5,5], [y,-5,5]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot3d(f,[x,-5,5], [y,-5,5]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

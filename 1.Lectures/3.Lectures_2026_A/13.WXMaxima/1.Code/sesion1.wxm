@@ -1,0 +1,669 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 0.8.5 ] */
+
+/* [wxMaxima: title   start ]
+Sesión 1
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: subsect start ]
+En esta sesión seguiremos la Introducción de P. Lutus en 
+http://arachnoid.com/maxima/index.html
+y el tutorial de wxMaxima
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Tipos de celdas y primeras expresiones
+(esta es una celda de sección creada con el menú Celda > Nueva celda de sección o F8)
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Esta es una celda de texto, creada con F6 y destinada a ser borrada para aprender a borrar (poneos debajo y cuando aparece la línea -> backspace)
+Insertad 2 o 3 celdas de texto, seleccionadas todas arrastrando sobre ellas con el ratón y borradlas.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Hasta ahora habéis creado celdas de texto, y vamos a crear celdas de cálculo con Celda > Nueva celda de entrada
+Para escribir una expresión hay que conocer la sintaxis de las expresiones. Empezamos:
+    ASIGNACIÓN de un valor a una variable ":"
+    ASIGNACIÓN de una expresión a una función ":="
+    Para ELIMINAR ASIGNACIÓN kill(nombre de función o de variable) 
+Y después de escribir la expresión hay que evaluarla (con Mayúsc+ Enter o con Celda > Evaluar celda)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:7
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Observamos lo que ocurre al evaluar:
+    -Maxima añade un punto y coma que es la forma de indicar que es el final de entrada
+    -Es reconocida la entrada (input)y numerada, lo que se muestra con la etiqueta %, la letra i (input), y el número 1 
+    -Es calculada la salida (output)y mostrada numerada, lo que se muestra con la etiqueta %, la letra o y el número 1
+Ahora a es conocida en este entorno de trabajo:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y para eliminarla en este entorno:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ahora este entorno no sabe cuánto vale a 
+y si evaluamos "a" la acepta como una letra, en el sentido algebraico
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:7; b:8; c:-3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=a*x^2+b*x+c;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a:-3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+c:0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(f);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Cuando no conoce el valor de una variable o una función 
+Maxima sencillamente repite lo que se ha introducido
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Un argumento de kill puede ser "all" y todo se resetea, hasta
+los números de entrada
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a; b;c; f;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Una forma alternativa de acabar una línea en vez de con ";", es poner un $
+y eso evita que se visualice la ejecución de la orden. 
+Es útil para los cálculos intermedios, pues la visualización lleva tiempo
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para repetir una entrada hay que escribir el código de entrada,
+precedido por dos comillas simples
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:7/3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+b:1/a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+''%i1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Los operadores aritméticos son los habituales en Octave: +, -, * , /, ^, sqrt
+Y el orden de las operaciones el habitual.
+Cuidado con el *: sólo vale para escalares. 
+La multiplicación de matrices tiene como operador el .
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+Los operadores de comparación : =, >, <, >=, <=, # 
+(éste es diferente de Octave, significa "ser distinto", ya no vale el <>)
+Para probarlos, usamos la función "is" (que es igual que en Wiris) 
+y que pregunta si lo que tiene como argumento es verdadero
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+a:8; b:-3;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+is(b>a);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+is(a#b);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Las constantes conocidas: pi, e, i, inf, phi (:-), el número de oro), 
+zeroa = infinitésimo positivo, zerob=infinitésimo negativo.
+
+pi, i y e van precedidas de la etiqueta % 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+%pi;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Los cálculos en Máxima son simplificaciones, no evaluaciones numéricas
+Si queremos la evaluar los números o los cálculos con ellos,
+debemos pedírselo expresamente con instrucciones com "float".
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integer(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+%e;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%e);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+%i;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+De la unidad compleja no tenemos versión aproximada decimal :-). Y tampoco del infinito
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+inf;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Pero sí del número de oro:phi
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+%phi;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%phi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para ver cómo trabaja el infinitésimo zeroa o el zerob, 
+le aplicamos la función limit que simplifica expresiones con infinitésimos
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+limit(a+zeroa);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+a;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Después del float aprendemos el big float (bfloat) con muchas más cifras decimales,
+pero para que los números decimales se muestren con más dígitos 
+hay que cambiar la precisión de trabajo con la orden fpprec (floating point precision)
+Y esto sólo afecta a los números en coma flotante, no a los enteros
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+fpprec:200;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+bfloat(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y como es inconveniente escribir 200 cifras, se limita a indicar con puntos suspensivos 142 posiciones decimales
+Si se quieren ver los 200 números hay que pedir que se muestren los caracteres ascii
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+set_display(ascii);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+bfloat(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En ascii algunos de los símbolos no se ven como antes
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+%pi;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para volver a verlos y recuperar la forma decimal anterior cambiamos el display
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+set_display(xml);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+%pi;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+bfloat(%pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En números enteros la respuesta es siempre todos los números:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+300!;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: section start ]
+Funciones elementales. 
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: comment start ]
+Algunas funciones elementales definidas en Maxima: trigonométricas y exponenciales simples
+Y algunas definidas por nosotros con ":=" 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: subsect start ]
+Algunas funciones simples en Maxima
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: input   start ] */
+sin(%pi/6);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+cos(%pi/7);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Sale sin el símbolo griego para pi porque hemos puesto el display en ascii
+Si queremos verlo con el símbolo tenemos que volver a poner el display en xml
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+set_display(xml);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y ahora volvemos a escribir lo mismo:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+cos(%pi/7);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(cos(%pi/7));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+tan(%pi/4);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+tan(%pi/2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Como la tangente no está definida en pi/2 , sencillamente lo escribe
+y si queremos que lo evalúe numéricamente da el valor límite (por la derecha)
+en la precisión indicada
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+float(tan(%pi/2));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+acos(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+acos(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+asin(sqrt(2)/2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para valores no exactos, si queremos el decimal hay que pedirlo
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+atan(2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(atan(2));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+atan(-inf);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+%e^1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%e^1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+La función exponencial:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+exp(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+exp(-3/2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Para pedir ayuda sobre una función o comando basta poner el símbolo "?" delante del nombre
+Para la búsqueda no exacta ponemos "??"
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+? sinh;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+? taylor;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+?? suma;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Funciones sencillas definidas por el usuario
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+La función exponencial:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+exp(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos definirla nosotros, con la asignación de funciones ":=" 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=%e^x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g(x):=(1/2)^x;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g(-1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g(5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+float(g(50));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Es fácil componer funciones:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+h(x):=g(f(x));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+h(0);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+h(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Cuidado que en la fracción casi no se ven los signos menos (las fracciones se hacen con dos guiones,
+cuando hay tres el primero es el del signo
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: section start ]
+Derivación de funciones de una variable
+   [wxMaxima: section end   ] */
+
+/* [wxMaxima: subsect start ]
+Derivación con comandos
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Derivación de funciones elementales: la orden es diff (differentiate) 
+Sintaxis de diff: diff(f(x), x, orden_derivada), es decir se especifican la función, 
+la variablede derivación y el orden de la derivada. 
+NO es preciso hacer la primera derivada para obtener la segunda, etc.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x):=e^x/(1+x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x),x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x),x,2);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x),x, 5);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+? diff;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Derivación con el menú de Análisis > Derivar
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+PERO ES MÁS FÁCIL USAR EL MENÚ: ANÁLISIS>DERIVAR
+Para señalar qué función queremos derivar basta poner el cursor
+sobre la definición de la función -habrá que borrar el punto y coma , 
+o escribirla en la ventana de diálogo,
+o escribir en esa ventana su número de entrada (%i)
+LUEGO podemos hallar la derivada en cualquier punto
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(f(x):=e^x/(1+x),x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(g(x):=log(x),x,1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff(g(1));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Podemos dar un nuevo nombre a la función derivada 
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+gder(x):=diff(g(x));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+gder(1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Integrar una función con comandos
+(Integral indefinida)
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Integración de funciones elementales: la orden es integrate 
+Sintaxis de integrate: integrate(f(x), x), es decir se especifican la función, 
+y la variable de integración
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(x^3-3,x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g(x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(g(x),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Si queremos volver a integrar (hacer la integral doble) no podemos indicar el orden,
+tenemos que integrar la integral o bien crear una funcion con una recursión
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(integrate(g(x),x),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Tambien podemos crear una función:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+tri_int(fun):=integrate(integrate(integrate(fun(x),x),x),x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Y la aplicamos a la función g(x) para hacer la integral triple:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+tri_int(g);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Integrar con el menú Análisis > Integrar
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Definimos la función (o usamos alguna entrada)
+menú Análisis>Integrar
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+h(x):=x*sin(x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(h(x), x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: subsect start ]
+Integración definida
+   [wxMaxima: subsect end   ] */
+
+/* [wxMaxima: comment start ]
+Aprenderemos primero con el menú y luego sin menú: observemos
+cómo es el comando que el menú escribe
+Queremos integrar h entre 0 y %pi
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate(x*sin(x), x, 0, %pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Vemos que se incluyen sencillamente los extremos de integración
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

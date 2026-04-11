@@ -1,0 +1,226 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 0.8.4 ] */
+
+/* [wxMaxima: title   start ]
+Tutorial - (wx)Maxima en 10 minutos
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: comment start ]
+Por: Žiga Lenarc
+Traducción por: Nicolás Guarín
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+¡Bienvenido a wxMaxima! En este tutorial introductorio aprenderás
+lo básicod e wxMaxima y Maxima. Maxima es un CAS (del inglés:
+Computer Algebra System, que traduce Sistema de Algebra por
+Computador) similar a sistemas como Mathematica, Maple y otros.
+Maxima, sin embargo, es una aplicación en línea de comandos,
+lo cual la hace un poco más difícil de usar para los más jóvenes.
+Aquí es donde aparece wxMaxima - es una GUI (del inglés: Graphical
+User Interface, que traduce Interfaz Gráfica de Usuario) para
+Maxima, hecha para hacer del uso de Maxima algo más simple y
+disfrutable.
+
+¡Comencemos con algunos cálculos simples! Abajo aparece una celda (cell)
+de entrada (input) con una simple suma. Ubique el cursos en ella y
+presione SHIFT-ENTER para evaluarla.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+1 + 1;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Si no tuvise ningún error, tu Maxima está configurado apropiadamente.
+Si tuviste algún error, deberías mirar la configuración de wxMaxima
+o visitar la página web de wxMaxima (http://wxmaxima.sourceforge.net/)
+por instrucciones en cómo configurar wxMaxima y Maxima apropiadamente.
+
+Asumiendo que te has encargado de tus problemas, hagamos algunos
+cáslculos (de nuevo - ubica el cursos en la celda de entrada de abajo
+y presiona SHIFT-ENTER para evaluar el código.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+5!;
+% * 10;
+%o1 * 100;
+1 / 3;
+1.0 / 3.0;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En la celda de entrada de arriba, envíamos 5 "líneas" a Maxima. Cada
+línea debe terminar con un ";" o un "$". En caso de que la línea termine
+en ";", Maxima mostrará los resultados de la línea, mientras que los
+resultados de las líneas terminadas en "$" serán omitidos. El "$" es
+muy útil cuando se realizan cálculos largos. Nótese además que los
+resultados de "1/3" y "1.0/3.0" difieren. eso es porque Maxima, a
+diferencia de paquetes numéricos como (Matlab, Octave, Scilab, etc.)
+trata de conservar los cálculos exactos - no evalúa expresiones como
+1/3 o sqrt(2) a menos que se le pida hacerlo. En "1.0/3.0" se usaron
+números en punto flotante, entonces Maxima no dejó la expresión
+sin evaluar.
+
+Podemos, sin embargo, decirle a Maxima que queremos una aproximación
+en punto flotando a una expresión. Evalúe la celda de abajo y observe
+los resultados.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+sqrt(2 * %pi);
+float(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En la línea "float(%);" usamos el símbolo "%". Este símbolo guarda el
+resultado de la última línea evaluada. Los símbolos enumerados "%o1",
+"%o2",... guarda los resultados que aparecen cuando las celdas de
+entrada son evaluada. Podemos además almacenar, no sólo números, sino
+también expresiones enteras, en variables. Para esto se usa
+"nombre_de_la_variable: valor;" con el fin de almacenar "valor" en
+"nombre_de_la_variable". Evalúe la celda de abajo y observe.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+radius: 10 $
+height: 100 $
+area: %pi * radius^2;
+volume: area * height;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Evaluemos el último resultado numéricamente:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+float(%);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Hasta ahora sólo hemos usado Maxima como una simple calculadora. Ahora
+intentemos algunas cosas que no son posibles con una calculadora.
+Integrales definidas e indefinidas:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate( sin(x), x);
+integrate( sin(x), x, 0, %pi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+¡Definamos una función, evaluémosla e integrémosla!
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x) := x^2 + a$
+f(5);
+f(5), a = -5;
+integrate( f(var), var );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Algunas veces Maxima necesita información adicional para evaluar una
+expresión y realiza algunas preguntas. Un cursor debería aparecer 
+automáticamente, indicando que se necesita responder una pregunta.
+Escribe una respuesta y envíala a Maxima con SHIFT-ENTER. Nota: en lugar
+de responder con "positive;", se puede sólo escribir "p". Abajo aparece
+una integral con una pregunta:
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+integrate( 1 / (x^2 + a), x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Se puede también informar a Maxima de antemano usando la función "assume".
+Para revertir una asunción, use "forget".
+(Nota: para obtener ayuda de cualquier función, sólo de click en el nombre
+de la función y presione F1. Inténtalo.)
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+assume(a > 0)$
+integrate( 1 / (x^2 + a), x);
+forget(a > 0)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Ahora que aprendimos los básico es tiempo para algunos ejemplos
+matemáticos. Recuerda: si quieres saber más sobre una función
+específica, da click en ella y presiona F1.
+
+Resolviendo ecuaciones usando "solve":
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+solve(a*x^2 + b*x + c = 0, x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Algebra lineal. Usa "matrix" para crear matrices. Las matrices pueden
+contener expresiones no numéricas. Usa "invert" para calcular la inversa
+y "." para multiplicación de matrices.
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+A: matrix([1,-1],
+          [1,sin(c)]);
+B: invert(A);
+
+A.B;
+ratsimp(A.B);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+En la última línea usamos "ratsimp" para simplificar los resultados
+de "A.B". Maxima tiene varias funciones de simplificación diferentes,
+dependiendo de qué tipo de simplificación se desee. La simplificación
+es un tópico complejo y si no sabes nada al respecto, usar "ratsimp"
+es tu mejor opción.
+
+¡Realicemos un gráfico 2D y uno 2D!
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+wxplot2d([sin(x), cos(x)], [x,0, 2*%pi]);
+wxplot3d( exp(-x^2 - y^2), [x,-2,2],[y,-2,2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Probemos la diferenciación usando la función "diff".
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+f(x) := x^2 $
+diff(f(x), x);
+g(y) := sin(y)$
+g(f(x));
+diff( g(f(x)) , x);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+¡Sí, Maxima sabe acerca de la regla de la cadena!
+
+Y para el final, resolvamos una EDO de segundo orden:
+y''(t) + omega^2 * y(t) = 0
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+assume(omega > 0);
+ode2( 'diff(y, t, 2) + omega^2 * y = 0, y, t );
+
+ic2(%, t = 0, y = amp, 'diff(y,t) = 0 );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Deberías ahora iniciar con la exploración de (wx)Maxima por
+tu cuenta. Recuerda presionar F1 a menudo, si necesitas que
+Maxima te ayude a resolver tus problemas matemáticos.
+
+¡Disfruta usando Maxima y wxMaxima!
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
